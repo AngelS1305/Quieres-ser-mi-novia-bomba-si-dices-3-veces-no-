@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi novia?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            background-size: cover;
+            background-position: center;
+        }
+        .video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 80%;
+            animation: fadeIn 1s ease-out;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 32px;
+            color: #333;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: red;
+        }
+
+        .message.si {
+            color: #4CAF50; /* Cambiar color del mensaje "Sí" */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(30);
+                opacity: 0;
+            }
+        }
+
+        .exploded {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            animation: explode 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 9999;
+        }
+
+        .instagram {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="video-background">
+        <source src="https://cdn.pixabay.com/video/2022/11/27/140668-775595965_large.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="container">
+        <h1>¿Quieres ser mi novia?</h1>
+        <button id="si">Sí</button>
+        <button id="no">No</button>
+        <div class="message" id="message"></div>
+    </div>
+
+    <div class="instagram">
+        Sígueme en Instagram: <a href="https://www.instagram.com/asxzl_ws" target="_blank">@asxzl_ws</a>
+    </div>
+    
+    <script>
+        let noClickCount = 0;
+
+        document.getElementById('no').addEventListener('click', () => {
+            const message = document.getElementById('message');
+            noClickCount++;
+            switch(noClickCount) {
+                case 1:
+                    message.textContent = 'No wueee pon el sí';
+                    break;
+                case 2:
+                    message.textContent = 'No vas a poner el sí 😞';
+                    break;
+                case 3:
+                    message.textContent = 'Ya está bien, ya no te quiero';
+                    setTimeout(() => {
+                        document.body.classList.add('exploded');
+                        setTimeout(() => {
+                            document.body.innerHTML = '';
+                        }, 500);
+                    }, 1000);
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        document.getElementById('si').addEventListener('click', () => {
+            const message = document.getElementById('message');
+            message.textContent = 'si wue sabia q dirias q si';
+            message.classList.add('si'); // Agregar clase 'si' al mensaje "Sí"
+            noClickCount = 0;
+        });
+    </script>
+</body>
+</html>
